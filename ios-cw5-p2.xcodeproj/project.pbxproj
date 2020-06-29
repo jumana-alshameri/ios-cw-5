@@ -14,6 +14,9 @@
 		C086583324A7D65B005BADFA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C086583124A7D65B005BADFA /* Main.storyboard */; };
 		C086583524A7D65E005BADFA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C086583424A7D65E005BADFA /* Assets.xcassets */; };
 		C086583824A7D65E005BADFA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C086583624A7D65E005BADFA /* LaunchScreen.storyboard */; };
+		C0D1E32A24AA1663009E8C59 /* background.m4a in Resources */ = {isa = PBXBuildFile; fileRef = C0D1E32924AA1663009E8C59 /* background.m4a */; };
+		C0D1E32C24AA1674009E8C59 /* 1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = C0D1E32B24AA1674009E8C59 /* 1.m4a */; };
+		C0D1E32E24AA1682009E8C59 /* 2.m4a in Resources */ = {isa = PBXBuildFile; fileRef = C0D1E32D24AA1682009E8C59 /* 2.m4a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +29,9 @@
 		C086583424A7D65E005BADFA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C086583724A7D65E005BADFA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C086583924A7D65E005BADFA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C0D1E32924AA1663009E8C59 /* background.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = background.m4a; sourceTree = "<group>"; };
+		C0D1E32B24AA1674009E8C59 /* 1.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = 1.m4a; sourceTree = "<group>"; };
+		C0D1E32D24AA1682009E8C59 /* 2.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = 2.m4a; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -39,9 +45,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C01145DC24A9A05B0042F158 /* sound */ = {
+			isa = PBXGroup;
+			children = (
+				C0D1E32D24AA1682009E8C59 /* 2.m4a */,
+				C0D1E32B24AA1674009E8C59 /* 1.m4a */,
+				C0D1E32924AA1663009E8C59 /* background.m4a */,
+			);
+			path = sound;
+			sourceTree = "<group>";
+		};
 		C086581F24A7D65B005BADFA = {
 			isa = PBXGroup;
 			children = (
+				C01145DC24A9A05B0042F158 /* sound */,
 				C086582A24A7D65B005BADFA /* ios-cw5-p2 */,
 				C086582924A7D65B005BADFA /* Products */,
 			);
@@ -130,6 +147,9 @@
 			files = (
 				C086583824A7D65E005BADFA /* LaunchScreen.storyboard in Resources */,
 				C086583524A7D65E005BADFA /* Assets.xcassets in Resources */,
+				C0D1E32C24AA1674009E8C59 /* 1.m4a in Resources */,
+				C0D1E32E24AA1682009E8C59 /* 2.m4a in Resources */,
+				C0D1E32A24AA1663009E8C59 /* background.m4a in Resources */,
 				C086583324A7D65B005BADFA /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

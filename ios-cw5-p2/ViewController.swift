@@ -8,6 +8,7 @@
 
 import UIKit
 import AVFoundation
+import AudioToolbox
 class ViewController: UIViewController {
     
     @IBOutlet weak var turnLabel: UILabel!
@@ -23,25 +24,68 @@ class ViewController: UIViewController {
         var player: AVAudioPlayer = AVAudioPlayer()
     var buttons: [UIButton] = []
     var counter = 0
+    var background: AVAudioPlayer?
+    var one: AVAudioPlayer?
+    var tow: AVAudioPlayer?
+    
+    func playbackground(){
+               let path = Bundle.main.path(forResource: "background.m4a", ofType: nil)!
+               let url = URL(fileURLWithPath: path)
+
+               do{
+                   background = try AVAudioPlayer(contentsOf: url)
+                   background?.play()
+               } catch{
+                   // couldn't load file
+               }
+           }
+           // Do any additional setup after loading the view.
     
     override func viewDidLoad() {
         super.viewDidLoad()
         buttons = [b1, b2, b3, b4, b5, b6, b7, b8, b9]
-        // Do any additional setup after loading the view.
+        playbackground()
+}
+    
+    func playone(){
+        let path = Bundle.main.path(forResource: "1.m4a", ofType: nil)!
+        let url = URL(fileURLWithPath: path)
+
+        do{
+            one = try AVAudioPlayer(contentsOf: url)
+            one?.play()
+        } catch{
+            // couldn't load file
+        }
     }
     
+    func playotow(){
+        let path = Bundle.main.path(forResource: "2.m4a", ofType: nil)!
+        let url = URL(fileURLWithPath: path)
+
+        do{
+            tow = try AVAudioPlayer(contentsOf: url)
+            tow?.play()
+        } catch{
+            // couldn't load file
+        }
+    }
     
     @IBAction func buttonPress(_ sender: UIButton) {
         
         if counter % 2 == 0{
             sender.setTitle("X", for: .normal)
-            sender.setTitleColor(.black, for: .normal)
+            AudioServicesPlayAlertSoundWithCompletion(SystemSoundID(kSystemSoundID_Vibrate)) { }
+            sender.setTitleColor(.green, for: .normal)
             turnLabel.text = "O Turn..."
+            playone()
         }
         else{
             sender.setTitle("O", for: .normal)
-            sender.setTitleColor(.white, for: .normal)
+            AudioServicesPlayAlertSoundWithCompletion(SystemSoundID(kSystemSoundID_Vibrate)) { }
+            sender.setTitleColor(.red, for: .normal)
              turnLabel.text = "X Turn..."
+            playotow()
             
         }
         counter += 1
@@ -70,11 +114,17 @@ class ViewController: UIViewController {
         {
             
             
-            let alertcontroller = UIAlertController(title: "\(winner) فاز", message: "قم بضغط الزر التالي كي يتم إعادة اللعب", preferredStyle: .alert)
-            let restartaction = UIAlertAction(title: "إعادة اللعب", style: .cancel) { alert in self.restartGame()}
+            let alertController = UIAlertController(title: "\(winner) has won", message: "Click on the play button to play again", preferredStyle: .alert)
+            let restartAction = UIAlertAction(title: "Play Again", style: .cancel) { (alert) in
+
+                self.restartGame()
+
+                }
+                alertController.addAction(restartAction)
+                present(alertController, animated: true, completion: nil)
             
         }
-                
+      
     }
         
         func restartGame()
@@ -89,21 +139,15 @@ class ViewController: UIViewController {
             counter = 0
             turnLabel.text = "X Turn..."
     }
-        func playMusic(musicName: String, type: String, loop: Int = 0)
-        {
-            let AssortedMusics = URL(fileURLWithPath: Bundle.main.path(forResource: musicName, ofType: type)!)
-            player = try! AVAudioPlayer(contentsOf: AssortedMusics)
-            player.prepareToPlay()
-            player.numberOfLoops = loop
-            player.volume = 0.5
-            player.play()
-        }
-
-
-    
-    
-    
-
+        
+    func okAlert(title: String, message: String)
+    {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "Ok", style: .cancel)
+        alertController.addAction(okAction)
+        present(alertController, animated: true)
+        
+    }
 
    
 }
