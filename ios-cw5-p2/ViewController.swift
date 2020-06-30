@@ -21,9 +21,20 @@ class ViewController: UIViewController {
     @IBOutlet weak var b7: UIButton!
     @IBOutlet weak var b8: UIButton!
     @IBOutlet weak var b9: UIButton!
+
+    @IBOutlet weak var xScore: UILabel!
+    @IBOutlet weak var oScore: UILabel!
+    
         var player: AVAudioPlayer = AVAudioPlayer()
+    
     var buttons: [UIButton] = []
     var counter = 0
+    
+    //X & O score counter
+    var scoreX = 0
+    var scoreO = 0
+    
+    //all music
     var background: AVAudioPlayer?
     var one: AVAudioPlayer?
     var tow: AVAudioPlayer?
@@ -70,7 +81,8 @@ class ViewController: UIViewController {
             // couldn't load file
         }
     }
-    
+   
+
     @IBAction func buttonPress(_ sender: UIButton) {
         
         if counter % 2 == 0{
@@ -101,6 +113,12 @@ class ViewController: UIViewController {
     }
     
     
+    @IBAction func playAgain() {
+        restartGame()
+        restartScore()
+    }
+    
+
     func winning(winner: String)
     {
         if (b1.titleLabel?.text == winner && b2.titleLabel?.text == winner && b3.titleLabel?.text == winner) ||
@@ -112,19 +130,42 @@ class ViewController: UIViewController {
            (b1.titleLabel?.text == winner && b5.titleLabel?.text == winner && b9.titleLabel?.text == winner) ||
            (b3.titleLabel?.text == winner && b5.titleLabel?.text == winner && b7.titleLabel?.text == winner)
         {
-            
-            
-            let alertController = UIAlertController(title: "\(winner) has won", message: "Click on the play button to play again", preferredStyle: .alert)
-            let restartAction = UIAlertAction(title: "Play Again", style: .cancel) { (alert) in
-
-                self.restartGame()
-
+            if winner == "X"{
+                    self.scoreX += 1
+                    self.xScore.text = String(self.scoreX)
                 }
-                alertController.addAction(restartAction)
-                present(alertController, animated: true, completion: nil)
+                else if winner == "O"{
+                    self.scoreO += 1
+                    self.oScore.text = String(self.scoreO)
+                }
+                
+                if scoreO != 3 && scoreX != 3 {
+                    let alertController = UIAlertController(title: "\(winner) has a point", message: "Click on the play button to play again", preferredStyle: .alert)
+                    let restartAction = UIAlertAction(title: "Play Again", style: .cancel) { (alert) in
+
+                        self.restartGame()
+
+                        }
+                        alertController.addAction(restartAction)
+                        present(alertController, animated: true, completion: nil)
+                }
+                else if scoreO == 3 || scoreX == 3{
+                    let alertController = UIAlertController(title: "\(winner) won 3 times!", message: "Click on the play button to play again", preferredStyle: .alert)
+                               let restartAction = UIAlertAction(title: "Play Again", style: .cancel) { (alert) in
+
+                                   self.restartGame()
+                                self.restartScore()
+
+                                   }
+                                   alertController.addAction(restartAction)
+                                   present(alertController, animated: true, completion: nil)
+                }
+            
+            
             
         }
       
+        
     }
         
         func restartGame()
@@ -138,8 +179,20 @@ class ViewController: UIViewController {
     
             counter = 0
             turnLabel.text = "X Turn..."
+            
+            var backGroundColor: [UIColor] = [#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), #colorLiteral(red: 0.721568644, green: 0.8862745166, blue: 0.5921568871, alpha: 1), #colorLiteral(red: 0.9568627477, green: 0.6588235497, blue: 0.5450980663, alpha: 1), #colorLiteral(red: 0.4745098054, green: 0.8392156959, blue: 0.9764705896, alpha: 1)]
+            self.view.backgroundColor = backGroundColor.randomElement()
+            
     }
-        
+    
+    func restartScore()
+    {
+        self.xScore.text = " "
+        self.oScore.text = " "
+        scoreO = 0
+        scoreX = 0
+    }
+    
     func okAlert(title: String, message: String)
     {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
